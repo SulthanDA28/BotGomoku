@@ -11,7 +11,7 @@ from __future__ import print_function
 from game import Board, Game
 from human import Human
 from bots.Bot13521159 import Bot13521159
-from bots.Bot13521coba import Bot13521coba
+# from bots.Bot13521coba import Bot13521coba
 def run():
     n = 5
     width, height = 8, 8
@@ -23,7 +23,7 @@ def run():
             TODO: Ganti isi variabel player menjadi bot mu
         """
         player1 = Bot13521159()
-        player2 = Bot13521coba()
+        player2 = Human()
 
         winner = game.start_play(player1, player2, start_player=1, is_shown=1)
         print("SELAMAT KEPADA: ", winner)

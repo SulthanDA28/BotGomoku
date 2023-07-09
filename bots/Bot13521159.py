@@ -87,106 +87,88 @@ class Bot13521159(object):
             return True,serongkiribawahtengah
         else:
             return False,-1
-    # def cek2Lebih(self,koor,lawan,ada):
-    #     buatngecek = 1
-    #     listcek2lebih = [["atas",0],["bawah",0],["kanan",0],["kiri",0],["serongkananatas",0],["serongkiriatas",0],["serongkananbawah",0],["serongkiribawah",0]]
-    #     while(buatngecek<=4):
-    #         if([koor[0]+buatngecek,koor[1]] in lawan and buatngecek-listcek2lebih[0][1]==1):
-    #             if([koor[0]+buatngecek+1,koor[1]] not in lawan and [koor[0]+buatngecek+1,koor[1]] in ada):
-    #                 listcek2lebih[0][1]=0
-    #             else:
-    #                 listcek2lebih[0][1]+=1
-    #         if([koor[0]-buatngecek,koor[1]] in lawan and buatngecek-listcek2lebih[1][1]==1):
-    #             if([koor[0]-buatngecek-1,koor[1]] not in lawan and [koor[0]-buatngecek-1,koor[1]] in ada):
-    #                 listcek2lebih[1][1]=0
-    #             else:
-    #                 listcek2lebih[1][1]+=1
-    #         if([koor[0],koor[1]+buatngecek] in lawan and buatngecek-listcek2lebih[2][1]==1):
-    #             if([koor[0],koor[1]+buatngecek+1] not in lawan and [koor[0],koor[1]+buatngecek+1] in ada):
-    #                 listcek2lebih[2][1]=0
-    #             else:
-    #                 listcek2lebih[2][1]+=1
-    #         if([koor[0],koor[1]-buatngecek] in lawan and buatngecek-listcek2lebih[3][1]==1):
-    #             if([koor[0],koor[1]-buatngecek-1] not in lawan and [koor[0],koor[1]-buatngecek-1] in ada):
-    #                 listcek2lebih[3][1]=0
-    #             else:
-    #                 listcek2lebih[3][1]+=1
-    #         if([koor[0]+buatngecek,koor[1]+buatngecek] in lawan and buatngecek-listcek2lebih[4][1]==1):
-    #             if([koor[0]+buatngecek+1,koor[1]+buatngecek+1] not in lawan and [koor[0]+buatngecek+1,koor[1]+buatngecek+1] in ada):
-    #                 listcek2lebih[4][1]=0
-    #             else:
-    #                 listcek2lebih[4][1]+=1
-    #         if([koor[0]+buatngecek,koor[1]-buatngecek] in lawan and buatngecek-listcek2lebih[5][1]==1):
-    #             if([koor[0]+buatngecek+1,koor[1]-buatngecek-1] not in lawan and [koor[0]+buatngecek+1,koor[1]-buatngecek-1] in ada):
-    #                 listcek2lebih[5][1]=0
-    #             else:
-    #                 listcek2lebih[5][1]+=1
-    #         if([koor[0]-buatngecek,koor[1]+buatngecek] in lawan and buatngecek-listcek2lebih[6][1]==1):
-    #             if([koor[0]-buatngecek-1,koor[1]+buatngecek+1] not in lawan and [koor[0]-buatngecek-1,koor[1]+buatngecek+1] in ada):
-    #                 listcek2lebih[6][1]=0
-    #             else:
-    #                 listcek2lebih[6][1]+=1
-    #         if([koor[0]-buatngecek,koor[1]-buatngecek] in lawan and buatngecek-listcek2lebih[7][1]==1):
-    #             if([koor[0]-buatngecek-1,koor[1]-buatngecek-1] not in lawan and [koor[0]-buatngecek-1,koor[1]-buatngecek-1] in ada):
-    #                 listcek2lebih[7][1]=0
-    #             else:
-    #                 listcek2lebih[7][1]+=1
-    #         buatngecek+=1
-    #     listcek2lebih.sort(key=lambda x: x[1])
-    #     nantidicek = False
-    #     if(listcek2lebih[7][1]>=1):
-    #         nantidicek = True
-    #     return listcek2lebih,nantidicek
+    def cek2Lebih(self,koor,lawan,ada,height,width):
+        listcek2lebih = [["atas",0],["bawah",0],["kanan",0],["kiri",0],["serongkananatas",0],["serongkiriatas",0],["serongkananbawah",0],["serongkiribawah",0]]
+        for i in range(1,5):
+            if([koor[0]+i,koor[1]] in lawan):
+                listcek2lebih[0][1]+=1
+            elif([koor[0]+i,koor[1]] not in lawan ):
+                if([koor[0]+i,koor[1]] not in ada and koor[0]+i<height):
+                    break
+                elif([koor[0]+i,koor[1]] in ada or koor[0]+i>=height):
+                    listcek2lebih[0][1]=0
+                    break
+        for i in range(1,5):
+            if([koor[0]-i,koor[1]] in lawan):
+                listcek2lebih[1][1]+=1
+            elif([koor[0]-i,koor[1]] not in lawan ):
+                if([koor[0]-i,koor[1]] not in ada and koor[0]-i>=0):
+                    break
+                elif([koor[0]-i,koor[1]] in ada or koor[0]-i<0):
+                    listcek2lebih[1][1]=0
+                    break
+        for i in range(1,5):
+            if([koor[0],koor[1]+i] in lawan):
+                listcek2lebih[2][1]+=1
+            elif([koor[0],koor[1]+i] not in lawan ):
+                if([koor[0],koor[1]+i] not in ada and koor[1]+i<width):
+                    break
+                elif([koor[0],koor[1]+i] in ada or koor[1]+i>=width):
+                    listcek2lebih[2][1]=0
+                    break
+        for i in range(1,5):
+            if([koor[0],koor[1]-i] in lawan):
+                listcek2lebih[3][1]+=1
+            elif([koor[0],koor[1]-i] not in lawan ):
+                if([koor[0],koor[1]-i] not in ada and koor[1]-i>=0):
+                    break
+                elif([koor[0],koor[1]-i] in ada or koor[1]-i<0):
+                    listcek2lebih[3][1]=0
+                    break
+        for i in range(1,5):
+            if([koor[0]+i,koor[1]+i] in lawan):
+                listcek2lebih[4][1]+=1
+            elif([koor[0]+i,koor[1]+i] not in lawan ):
+                if([koor[0]+i,koor[1]+i] not in ada and koor[0]+i<height and koor[1]+i<width):
+                    break
+                elif([koor[0]+i,koor[1]+i] in ada or koor[0]+i>=height or koor[1]+i>=width):
+                    listcek2lebih[4][1]=0
+                    break
+        for i in range(1,5):
+            if([koor[0]+i,koor[1]-i] in lawan):
+                listcek2lebih[5][1]+=1
+            elif([koor[0]+i,koor[1]-i] not in lawan ):
+                if([koor[0]+i,koor[1]-i] not in ada and koor[0]+i<height and koor[1]-i>=0):
+                    break
+                elif([koor[0]+i,koor[1]-i] in ada or koor[0]+i>=height or koor[1]-i<0):
+                    listcek2lebih[5][1]=0
+                    break
+        for i in range(1,5):
+            if([koor[0]-i,koor[1]+i] in lawan):
+                listcek2lebih[6][1]+=1
+            elif([koor[0]-i,koor[1]+i] not in lawan ):
+                if([koor[0]-i,koor[1]+i] not in ada and koor[0]-i>=0 and koor[1]+i<width):
+                    break
+                elif([koor[0]-i,koor[1]+i] in ada or koor[0]-i<0 or koor[1]+i>=width):
+                    listcek2lebih[6][1]=0
+                    break
+        for i in range(1,5):
+            if([koor[0]-i,koor[1]-i] in lawan):
+                listcek2lebih[7][1]+=1
+            elif([koor[0]-i,koor[1]-i] not in lawan ):
+                if([koor[0]-i,koor[1]-i] not in ada and koor[0]-i>=0 and koor[1]-i>=0):
+                    break
+                elif([koor[0]-i,koor[1]-i] in ada or koor[0]-i<0 or koor[1]-i<0):
+                    listcek2lebih[7][1]=0
+                    break
+        return listcek2lebih
 
+        
              
 
 
 
     def get_input(self, board : Board) -> str:
-        """
-            Parameter board merepresentasikan papan permainan. Objek board memiliki beberapa
-            atribut penting yang dapat menjadi acuan strategi.
-            - board.height : int (x) -> panjang papan
-            - board.width : int (y) -> lebar papan
-            Koordinat 0,0 terletak pada kiri bawah
-
-            [x,0] [x,1] [x,2] . . . [x,y]                               
-            . . . . . . . . . . . . . . .  namun perlu diketahui        Contoh 4x4: 
-            . . . . . . . . . . . . . . .  bahwa secara internal        11 12 13 14 15
-            . . . . . . . . . . . . . . .  sel-sel disimpan dengan  =>  10 11 12 13 14
-            [2,0] [2,1] [2,2] . . . [2,y]  barisan interger dimana      5  6  7  8  9
-            [1,0] [1,1] [1,2] . . . [1,y]  kiri bawah adalah nol        0  1  2  3  4
-            [0,0] [0,1] [0,2] . . . [0,y]          
-                                 
-            - board.states : dict -> Kondisi papan. 
-            Key dari states adalah integer sel (0,1,..., x*y)
-            Value adalah integer 1 atau 2:
-            -> 1 artinya sudah diisi player 1
-            -> 2 artinya sudah diisi player 2
-
-            TODO: Tentukan x,y secara greedy. Kembalian adalah sebuah string "x,y"
-        """
-        #WIDTH BUAT KESAMPING
-        #HEIGHT BUAT KEATAS BAWAH
-        #Y ITU YANG ATAS
-        #X ITU YANG SAMPING
-        """
-       0       1       2       3       4       5       6       7       8       9      10
-
-   4   _       _       _       _       _       _       _       _       _       _       _
-
-
-   3   _       _       _       _       _       _       _       _       _       _       _
-
-
-   2   _       _       _       _       _       O       _       _       _       _       _
-
-
-   1   _       _       X       _       _       _       _       _       _       _       _
-
-
-   0   _       _       _       _       _       _       _       _       _       _       _
-   """
         if(board.states == {} or board.states.get(board.height//2*board.width+board.width//2,-1) == -1):
             y = board.width//2
             x = board.height//2
@@ -203,61 +185,18 @@ class Bot13521159(object):
             listlawanbaru = self.ubahkekoordinat(listlawan,board.width)
             listkitabaru =  self.ubahkekoordinat(listkita,board.width)
             udahadabaru = self.ubahkekoordinat(udahada,board.width)
+            cek2lebih = []
             for i in range(len(listlawanbaru)):
                 ngecekantara,kasusantara = self.cekantara(listlawanbaru[i],listlawanbaru,udahadabaru)
-                # cek2lebih,dicek = self.cek2Lebih(listlawanbaru[i],listlawanbaru,udahadabaru)
-                # print(listlawanbaru[i],":",cek2lebih)
-                # print(dicek)
-                # if(dicek):
-                #     for i in range(len(cek2lebih)-1,-1,-1):
-                #         if(cek2lebih[i][0]=="atas" and [listlawanbaru[i][0]+cek2lebih[i][1]+1,listlawanbaru[i][1]] not in udahadabaru):
-                #             if(listlawanbaru[i][0]+cek2lebih[i][1]+1<board.height):
-                #                 x = listlawanbaru[i][0]+cek2lebih[i][1]+1
-                #                 y = listlawanbaru[i][1]
-                #                 break
-                #         elif(cek2lebih[i][0]=="bawah" and [listlawanbaru[i][0]-cek2lebih[i][1]-1,listlawanbaru[i][1]] not in udahadabaru):
-                #             if(listlawanbaru[i][0]-cek2lebih[i][1]-1>=0):
-                #                 x = listlawanbaru[i][0]-cek2lebih[i][1]-1
-                #                 y = listlawanbaru[i][1]
-                #                 break
-                #         elif(cek2lebih[i][0]=="kanan" and [listlawanbaru[i][0],listlawanbaru[i][1]+cek2lebih[i][1]+1] not in udahadabaru):
-                #             if(listlawanbaru[i][1]+cek2lebih[i][1]+1<board.width):
-                #                 x = listlawanbaru[i][0]
-                #                 y = listlawanbaru[i][1]+cek2lebih[i][1]+1
-                #                 break
-                #         elif(cek2lebih[i][0]=="kiri" and [listlawanbaru[i][0],listlawanbaru[i][1]-cek2lebih[i][1]-1] not in udahadabaru):
-                #             if(listlawanbaru[i][1]-cek2lebih[i][1]-1>=0):
-                #                 x = listlawanbaru[i][0]
-                #                 y = listlawanbaru[i][1]-cek2lebih[i][1]-1
-                #                 break
-                #         elif(cek2lebih[i][0]=="serongkananatas" and [listlawanbaru[i][0]+cek2lebih[i][1]+1,listlawanbaru[i][1]+cek2lebih[i][1]+1] not in udahadabaru):
-                #             if(listlawanbaru[i][0]+cek2lebih[i][1]+1<board.height and listlawanbaru[i][1]+cek2lebih[i][1]+1<board.width):
-                #                 x = listlawanbaru[i][0]+cek2lebih[i][1]+1
-                #                 y = listlawanbaru[i][1]+cek2lebih[i][1]+1
-                #                 break
-                #         elif(cek2lebih[i][0]=="serongkiriatas" and [listlawanbaru[i][0]+cek2lebih[i][1]+1,listlawanbaru[i][1]-cek2lebih[i][1]-1] not in udahadabaru):
-                #             if(listlawanbaru[i][0]+cek2lebih[i][1]+1<board.height and listlawanbaru[i][1]-cek2lebih[i][1]-1>=0):
-                #                 x = listlawanbaru[i][0]+cek2lebih[i][1]+1
-                #                 y = listlawanbaru[i][1]-cek2lebih[i][1]-1
-                #                 break
-                #         elif(cek2lebih[i][0]=="serongkananbawah" and [listlawanbaru[i][0]-cek2lebih[i][1]-1,listlawanbaru[i][1]+cek2lebih[i][1]+1] not in udahadabaru):
-                #             if(listlawanbaru[i][0]-cek2lebih[i][1]-1>=0 and listlawanbaru[i][1]+cek2lebih[i][1]+1<board.width):
-                #                 x = listlawanbaru[i][0]-cek2lebih[i][1]-1
-                #                 y = listlawanbaru[i][1]+cek2lebih[i][1]+1
-                #                 break
-                #         elif(cek2lebih[i][0]=="serongkiribawah" and [listlawanbaru[i][0]-cek2lebih[i][1]-1,listlawanbaru[i][1]-cek2lebih[i][1]-1] not in udahadabaru):
-                #             if(listlawanbaru[i][0]-cek2lebih[i][1]-1>=0 and listlawanbaru[i][1]-cek2lebih[i][1]-1>=0):
-                #                 x = listlawanbaru[i][0]-cek2lebih[i][1]-1
-                #                 y = listlawanbaru[i][1]-cek2lebih[i][1]-1
-                #                 break
-                #         elif(ngecekantara):
-                #             x = kasusantara[0]
-                #             y = kasusantara[1]
-                #             break
+                test = self.cek2Lebih(listlawanbaru[i],listlawanbaru,udahadabaru,board.height,board.width)
+                test.sort(key=lambda x: x[1])
+                # print(listlawanbaru[i],test)
+                if(test[7][1]>0):
+                    cek2lebih.append([listlawanbaru[i],test[7]])
                 if(ngecekantara):
                     x = kasusantara[0]
                     y = kasusantara[1]
-                    break
+                    
                 else:
                     if([0,0] not in udahadabaru):
                         x = 0
@@ -317,6 +256,33 @@ class Bot13521159(object):
                                 else:
                                     continue
                             
+            cek2lebih.sort(key=lambda x: x[1][1])
+            if(cek2lebih!=[]):
+                if(cek2lebih[len(cek2lebih)-1][1][0] == "atas"):
+                    x = cek2lebih[len(cek2lebih)-1][0][0]+cek2lebih[len(cek2lebih)-1][1][1]+1
+                    y = cek2lebih[len(cek2lebih)-1][0][1]
+                elif(cek2lebih[len(cek2lebih)-1][1][0] == "bawah"):
+                    x = cek2lebih[len(cek2lebih)-1][0][0]-cek2lebih[len(cek2lebih)-1][1][1]-1
+                    y = cek2lebih[len(cek2lebih)-1][0][1]
+                elif(cek2lebih[len(cek2lebih)-1][1][0] == "kanan"):
+                    x = cek2lebih[len(cek2lebih)-1][0][0]
+                    y = cek2lebih[len(cek2lebih)-1][0][1]+cek2lebih[len(cek2lebih)-1][1][1]+1
+                elif(cek2lebih[len(cek2lebih)-1][1][0] == "kiri"):
+                    x = cek2lebih[len(cek2lebih)-1][0][0]
+                    y = cek2lebih[len(cek2lebih)-1][0][1]-cek2lebih[len(cek2lebih)-1][1][1]-1
+                elif(cek2lebih[len(cek2lebih)-1][1][0] == "serongkananatas"):
+                    x = cek2lebih[len(cek2lebih)-1][0][0]+cek2lebih[len(cek2lebih)-1][1][1]+1
+                    y = cek2lebih[len(cek2lebih)-1][0][1]+cek2lebih[len(cek2lebih)-1][1][1]+1
+                elif(cek2lebih[len(cek2lebih)-1][1][0] == "serongkiriatas"):
+                    x = cek2lebih[len(cek2lebih)-1][0][0]+cek2lebih[len(cek2lebih)-1][1][1]+1
+                    y = cek2lebih[len(cek2lebih)-1][0][1]-cek2lebih[len(cek2lebih)-1][1][1]-1
+                elif(cek2lebih[len(cek2lebih)-1][1][0] == "serongkananbawah"):
+                    x = cek2lebih[len(cek2lebih)-1][0][0]-cek2lebih[len(cek2lebih)-1][1][1]-1
+                    y = cek2lebih[len(cek2lebih)-1][0][1]+cek2lebih[len(cek2lebih)-1][1][1]+1
+                elif(cek2lebih[len(cek2lebih)-1][1][0] == "serongkiribawah"):
+                    x = cek2lebih[len(cek2lebih)-1][0][0]-cek2lebih[len(cek2lebih)-1][1][1]-1
+                    y = cek2lebih[len(cek2lebih)-1][0][1]-cek2lebih[len(cek2lebih)-1][1][1]-1
+
 
                         
         return f"{x},{y}"
