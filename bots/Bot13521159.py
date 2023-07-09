@@ -310,7 +310,7 @@ class Bot13521159(object):
                                 y = koorcek[1]-1
                                 break
                             else:
-                                if(countmin>=10):
+                                if(countmin>=30):
                                     x = random.randint(0,board.height-1)
                                     y = random.randint(0,board.width-1)
                                     break
