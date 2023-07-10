@@ -255,6 +255,11 @@ class Bot13521159(object):
                                     break
                                 else:
                                     continue
+            for j in range(len(listkitabaru)):
+                cek2lebihkitabaru = self.cek2Lebih(listkitabaru[j],listkitabaru,udahadabaru,board.height,board.width)
+                cek2lebihkitabaru.sort(key=lambda x: x[1])
+                if(cek2lebihkitabaru[7][1]>0):
+                    cek2lebih.append([listkitabaru[j],cek2lebihkitabaru[7]])
                             
             cek2lebih.sort(key=lambda x: x[1][1])
             if(cek2lebih!=[]):
